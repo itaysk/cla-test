@@ -11,18 +11,17 @@ jobs:
         with:
           name: itaysk/cla
           fetch-depth: "1"
-      - name: CLA check
+      - name: check
+        run: grep "^$GITHUB_ACTOR$" db/*
+      - name: notify
+        if: ${{ failure() }}
         run: |
-          MESSAGE="This repository requires contributors to sign a Contributor License Agreement (CLA). For info and instructions, please see http://google.com"
-          echo "Checking CLA for: $GITHUB_ACTOR"
-          gh auth login --with-token <<<'${{ secrets.GITHUB_TOKEN }}'
+          set -e
+          echo "CLA for $GITHUB_ACTOR not found"
           PR=$(jq '.number' "$GITHUB_EVENT_PATH")
+          MESSAGE="This repository requires contributors to sign a Contributor License Agreement (CLA). For info and instructions, please see CONTRIBUTING.md"
+          gh auth login --with-token <<<'${{ secrets.GITHUB_TOKEN }}'
           gh pr comment "$PR" --body "$MESSAGE"
-          if ! grep "^$GITHUB_ACTOR$" db/*
-          then
-            gh pr comment --body "$MESSAGE"
-            exit 1
-          fi
   build:
     runs-on: ubuntu-latest
     steps:
