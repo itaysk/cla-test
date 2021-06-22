@@ -8,9 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          LINK="http://google.com"
+          MESSAGE="This repository requires contributors to sign a Contributor License Agreement (CLA). For info and instructions, please see http://google.com"
           echo $GITHUB_ACTOR
-          grep "^$GITHUB_ACTOR$" db/* || echo "Contributor License Agreement (CLA) not signed. Please visit $LINK for more info"
+          if ! grep "^$GITHUB_ACTOR$" "db/*"
+          then
+            echo "$MESSAGE"
+            exit 1
+          fi
   build:
     runs-on: ubuntu-latest
     steps:
