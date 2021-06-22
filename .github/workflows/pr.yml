@@ -22,8 +22,3 @@ jobs:
           MESSAGE="This repository requires contributors to sign a Contributor License Agreement (CLA). For info and instructions, please see CONTRIBUTING.md"
           gh auth login --with-token <<<'${{ secrets.GITHUB_TOKEN }}'
           gh pr comment "$PR" --body "$MESSAGE"
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: echo "hi" > artifact
