@@ -12,7 +12,8 @@ jobs:
           repository: itaysk/cla
           fetch-depth: "1"
       - name: check
-        run: ls -l && grep "^$GITHUB_ACTOR$" db/*
+        run: |
+          grep "^$GITHUB_ACTOR$" db/*
       - name: notify
         if: ${{ failure() }}
         run: |
