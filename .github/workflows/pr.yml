@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   cla:
+    runs-on: ubuntu-latest
     steps:
       - run: |
           LINK="http://google.com"
