@@ -13,13 +13,11 @@ jobs:
           fetch-depth: "1"
       - name: check
         run: |
-          set -e
           USER=$(jq '.sender.login' "$GITHUB_EVENT_PATH")
           grep "^$USER$" db/*
       - name: notify
         if: ${{ failure() }}
         run: |
-          set -e
           PR=$(jq '.number' "$GITHUB_EVENT_PATH")
           MESSAGE="This repository requires contributors to sign a Contributor License Agreement (CLA). For info and instructions, please see CONTRIBUTING.md"
           gh auth login --with-token <<<'${{ secrets.GITHUB_TOKEN }}'
