@@ -1,0 +1,17 @@
+name: PR
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  cla:
+    steps:
+      - run: |
+          LINK="http://google.com"
+          echo $GITHUB_ACTOR
+          grep "^$GITHUB_ACTOR$" db/* || echo "Contributor License Agreement (CLA) not signed. Please visit $LINK for more info"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "hi" > artifact
