@@ -16,7 +16,8 @@ jobs:
           MESSAGE="This repository requires contributors to sign a Contributor License Agreement (CLA). For info and instructions, please see http://google.com"
           echo "Checking CLA for: $GITHUB_ACTOR"
           gh auth login --with-token <<<'${{ secrets.GITHUB_TOKEN }}'
-          gh pr comment --body "$MESSAGE"
+          PR=$(jq '.number' "$GITHUB_EVENT_PATH")
+          gh pr comment "$PR" --body "$MESSAGE"
           if ! grep "^$GITHUB_ACTOR$" db/*
           then
             gh pr comment --body "$MESSAGE"
