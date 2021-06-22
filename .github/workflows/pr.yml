@@ -9,6 +9,7 @@ jobs:
     steps:
       - name: CLA check
         run: |
+          ls -l
           MESSAGE="This repository requires contributors to sign a Contributor License Agreement (CLA). For info and instructions, please see http://google.com"
           echo "Checking CLA for: $GITHUB_ACTOR"
           if ! grep "^$GITHUB_ACTOR$" db/*
