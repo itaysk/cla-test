@@ -7,10 +7,11 @@ jobs:
   cla:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: CLA check
+        run: |
           MESSAGE="This repository requires contributors to sign a Contributor License Agreement (CLA). For info and instructions, please see http://google.com"
-          echo $GITHUB_ACTOR
-          if ! grep "^$GITHUB_ACTOR$" "db/*"
+          echo "Checking CLA for: $GITHUB_ACTOR"
+          if ! grep "^$GITHUB_ACTOR$" db/*
           then
             echo "$MESSAGE"
             exit 1
