@@ -13,6 +13,8 @@ jobs:
           fetch-depth: "1"
       - name: check
         run: |
+          ls -l "$GITHUB_EVENT_PATH"
+          cat "$GITHUB_EVENT_PATH"
           USER=$(jq '.sender.login' "$GITHUB_EVENT_PATH")
           grep "^$USER$" db/*
       - name: notify
