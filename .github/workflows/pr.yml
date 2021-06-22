@@ -15,12 +15,12 @@ jobs:
         run: |
           ls -l "$GITHUB_EVENT_PATH"
           cat "$GITHUB_EVENT_PATH"
-          USER=$(jq '.sender.login' "$GITHUB_EVENT_PATH")
+          USER=$(jq -r '.sender.login' "$GITHUB_EVENT_PATH")
           grep "^$USER$" db/*
       - name: notify
         if: ${{ failure() }}
         run: |
-          PR=$(jq '.number' "$GITHUB_EVENT_PATH")
+          PR=$(jq -r '.number' "$GITHUB_EVENT_PATH")
           MESSAGE="This repository requires contributors to sign a Contributor License Agreement (CLA). For info and instructions, please see CONTRIBUTING.md"
           gh auth login --with-token <<<'${{ secrets.GITHUB_TOKEN }}'
           gh pr comment "$PR" --body "$MESSAGE"
