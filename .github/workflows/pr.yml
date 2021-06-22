@@ -9,8 +9,10 @@ jobs:
     steps:
       - name: CLA check
         run: |
-          ls -l
+          CLA_REPO=cla
+          CLA_REPO_ORG=itaysk
           MESSAGE="This repository requires contributors to sign a Contributor License Agreement (CLA). For info and instructions, please see http://google.com"
+          git clone --depth 1 "git@github.com:$CLA_ORG/$CLA_REPO.git" "$CLA_REPO" && cd "$CLA_REPO"
           echo "Checking CLA for: $GITHUB_ACTOR"
           if ! grep "^$GITHUB_ACTOR$" db/*
           then
