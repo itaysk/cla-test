@@ -9,10 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@master
         with:
-          name: itaysk/cla
+          repository: itaysk/cla
           fetch-depth: "1"
       - name: check
-        run: grep "^$GITHUB_ACTOR$" db/*
+        run: ls -l && grep "^$GITHUB_ACTOR$" db/*
       - name: notify
         if: ${{ failure() }}
         run: |
